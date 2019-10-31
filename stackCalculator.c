@@ -74,7 +74,6 @@ int oneByOne()
         if(userInput == 'q')
         {
             answer = pop(&stack);
-            printf("The final answer was %d", answer);
             return answer;
         }
 
@@ -83,20 +82,18 @@ int oneByOne()
         {
             userNum = (userInput - '0');
             stack = push(stack, userNum);
-            printf("The value pushed is %d\n", stack->data);
             stackSize += 1;
         }
 
         else if(stackSize >= 2)
         {
-            printf("In else if");
             switch(userInput)
             {
             case '+':
                 twoNums[0] = pop(&stack);
                 twoNums[1] = pop(&stack);
                 answer = twoNums[1] + twoNums[0];
-                printf("\n Answer is %d\n", answer);
+                printf("%d + %d is: %d\n", twoNums[1], twoNums[0], answer);
                 stack = push(stack, answer);
                 stackSize -= 1;
                 break;
@@ -104,7 +101,7 @@ int oneByOne()
                 twoNums[0] = pop(&stack);
                 twoNums[1] = pop(&stack);
                 answer = twoNums[1] - twoNums[0];
-                printf("\n Answer is %d\n", answer);
+                printf("%d - %d is: %d\n", twoNums[1], twoNums[0], answer);
                 stack = push(stack, answer);
                 stackSize -= 1;
                 break;
@@ -112,7 +109,7 @@ int oneByOne()
                 twoNums[0] = pop(&stack);
                 twoNums[1] = pop(&stack);
                 answer = twoNums[1] / twoNums[0];
-                printf("\n Answer is %d\n", answer);
+                printf("%d / %d is: %d\n", twoNums[1], twoNums[0], answer);
                 stack = push(stack, answer);
                 stackSize -= 1;
                 break;
@@ -120,7 +117,7 @@ int oneByOne()
                 twoNums[0] = pop(&stack);
                 twoNums[1] = pop(&stack);
                 answer = twoNums[1] * twoNums[0];
-                printf("\n Answer is %d\n", answer);
+                printf("%d * %d is: %d\n", twoNums[1], twoNums[0], answer);
                 stack = push(stack, answer);
                 stackSize -= 1;
                 break;
@@ -133,16 +130,6 @@ int oneByOne()
 
 int main()
 {
-    //test function are working
-    struct node *top = NULL;
-    top = push(top, 10);
-    top = push(top, 20);
-    top = push(top, 30);
-    int poppedVal;
-    printStack(top);
-    poppedVal = pop(&top);
-    printf("The value of popped val is %d\n", poppedVal);
-    printStack(top);
     int answer = oneByOne();
     printf("The final answer is: %d", answer);
     return 0;
