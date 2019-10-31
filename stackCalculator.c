@@ -20,10 +20,35 @@ struct node *push(struct node *top, int data)
     return newNode;
 }
 
+//function used to pop values from stack and return the popped value
+int *pop(struct node **top)
+{
+    struct node *temp;
+    temp = (*top);
+
+    if((*top) == NULL)
+    {
+         printf("The stack is empty\n");
+         return;
+    }
+
+    else
+    {
+        (*top) = (*top)->next;
+        int data = temp->data;
+        free(temp);
+        return data;
+    }
+
+}
+
+
 int main()
 {
     struct node *top = NULL;
-
+    top = push(top, 10);
+    top = push(top, 20);
+    top = push(top, 30);
 
     return 0;
 }
