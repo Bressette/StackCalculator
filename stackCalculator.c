@@ -1,5 +1,6 @@
 #include "stdlib.h"
 #include "stdio.h"
+#include <stdbool.h>
 
 //definition of linked list used to store stack
 struct node
@@ -17,6 +18,7 @@ struct node *push(struct node *top, int data)
     struct node *newNode = malloc(sizeof(struct node));
     newNode->data = data;
     newNode->next = top;
+    newNode->stackSize++;
     return newNode;
 }
 
@@ -55,6 +57,79 @@ void printStack(struct node *top)
     printf("\n");
 }
 
+int oneByOne()
+{
+    int stackSize = 0;
+    struct node *stack;
+    char userInput;
+    int userNum;
+    int answer;
+    int twoNums[2];
+
+    while(true)
+    {
+        printf("Enter a single digit or operator (q to exit)\n");
+        scanf(" %c", &userInput);
+
+        if(userInput == 'q')
+        {
+            answer = pop(&stack);
+            printf("The final answer was %d", answer);
+            return answer;
+        }
+
+
+        if((userInput - '0') < 10 && (userInput - '0') >=0)
+        {
+            userNum = (userInput - '0');
+            stack = push(stack, userNum);
+            printf("The value pushed is %d\n", stack->data);
+            stackSize += 1;
+        }
+
+        else if(stackSize >= 2)
+        {
+            printf("In else if");
+            switch(userInput)
+            {
+            case '+':
+                twoNums[0] = pop(&stack);
+                twoNums[1] = pop(&stack);
+                answer = twoNums[1] + twoNums[0];
+                printf("\n Answer is %d\n", answer);
+                stack = push(stack, answer);
+                stackSize -= 1;
+                break;
+            case '-':
+                twoNums[0] = pop(&stack);
+                twoNums[1] = pop(&stack);
+                answer = twoNums[1] - twoNums[0];
+                printf("\n Answer is %d\n", answer);
+                stack = push(stack, answer);
+                stackSize -= 1;
+                break;
+            case '/':
+                twoNums[0] = pop(&stack);
+                twoNums[1] = pop(&stack);
+                answer = twoNums[1] / twoNums[0];
+                printf("\n Answer is %d\n", answer);
+                stack = push(stack, answer);
+                stackSize -= 1;
+                break;
+            case '*':
+                twoNums[0] = pop(&stack);
+                twoNums[1] = pop(&stack);
+                answer = twoNums[1] * twoNums[0];
+                printf("\n Answer is %d\n", answer);
+                stack = push(stack, answer);
+                stackSize -= 1;
+                break;
+            }
+
+        }
+    }
+
+}
 
 int main()
 {
@@ -68,5 +143,7 @@ int main()
     poppedVal = pop(&top);
     printf("The value of popped val is %d\n", poppedVal);
     printStack(top);
+    int answer = oneByOne();
+    printf("The final answer is: %d", answer);
     return 0;
 }
