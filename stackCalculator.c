@@ -21,6 +21,8 @@ struct node *push(struct node *top, int data)
 }
 
 //function used to pop values from stack and return the popped value
+//top is passed in as a double pointer so that the stack is updated
+//when pop is called and an int value can be returned from each pop
 int *pop(struct node **top)
 {
     struct node *temp;
@@ -42,13 +44,29 @@ int *pop(struct node **top)
 
 }
 
+//function used to print values in stack for testing
+void printStack(struct node *top)
+{
+    while(top != NULL)
+    {
+        printf("%d ", top->data);
+        top = top->next;
+    }
+    printf("\n");
+}
+
 
 int main()
 {
+    //test function are working
     struct node *top = NULL;
     top = push(top, 10);
     top = push(top, 20);
     top = push(top, 30);
-
+    int poppedVal;
+    printStack(top);
+    poppedVal = pop(&top);
+    printf("The value of popped val is %d\n", poppedVal);
+    printStack(top);
     return 0;
 }
