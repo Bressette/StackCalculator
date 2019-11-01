@@ -57,6 +57,50 @@ void printStack(struct node *top)
     printf("\n");
 }
 
+struct node *selectOperation(struct node **stack, char userInput)
+{
+    int twoNums[2];
+    int answer;
+     switch(userInput)
+            {
+            case '+':
+                twoNums[0] = pop(stack);
+                twoNums[1] = pop(stack);
+                answer = twoNums[1] + twoNums[0];
+                printf("%d + %d is: %d\n", twoNums[1], twoNums[0], answer);
+                (*stack) = push((*stack), answer);
+                break;
+            case '-':
+                twoNums[0] = pop(stack);
+                twoNums[1] = pop(stack);
+                answer = twoNums[1] - twoNums[0];
+                printf("%d - %d is: %d\n", twoNums[1], twoNums[0], answer);
+                (*stack) = push((*stack), answer);
+                break;
+            case '/':
+                twoNums[0] = pop(stack);
+                twoNums[1] = pop(stack);
+                if(twoNums[0] == 0)
+                {
+                    printf("You cannot divide by 0\n");
+                    break;
+                }
+                answer = twoNums[1] / twoNums[0];
+                printf("%d / %d is: %d\n", twoNums[1], twoNums[0], answer);
+                (*stack) = push((*stack), answer);
+                break;
+            case '*':
+                twoNums[0] = pop(stack);
+                twoNums[1] = pop(stack);
+                answer = twoNums[1] * twoNums[0];
+                printf("%d * %d is: %d\n", twoNums[1], twoNums[0], answer);
+                (*stack) = push((*stack), answer);
+                break;
+            }
+
+}
+
+
 int oneByOne()
 {
     int stackSize = 0;
@@ -87,42 +131,8 @@ int oneByOne()
 
         else if(stackSize >= 2)
         {
-            switch(userInput)
-            {
-            case '+':
-                twoNums[0] = pop(&stack);
-                twoNums[1] = pop(&stack);
-                answer = twoNums[1] + twoNums[0];
-                printf("%d + %d is: %d\n", twoNums[1], twoNums[0], answer);
-                stack = push(stack, answer);
-                stackSize -= 1;
-                break;
-            case '-':
-                twoNums[0] = pop(&stack);
-                twoNums[1] = pop(&stack);
-                answer = twoNums[1] - twoNums[0];
-                printf("%d - %d is: %d\n", twoNums[1], twoNums[0], answer);
-                stack = push(stack, answer);
-                stackSize -= 1;
-                break;
-            case '/':
-                twoNums[0] = pop(&stack);
-                twoNums[1] = pop(&stack);
-                answer = twoNums[1] / twoNums[0];
-                printf("%d / %d is: %d\n", twoNums[1], twoNums[0], answer);
-                stack = push(stack, answer);
-                stackSize -= 1;
-                break;
-            case '*':
-                twoNums[0] = pop(&stack);
-                twoNums[1] = pop(&stack);
-                answer = twoNums[1] * twoNums[0];
-                printf("%d * %d is: %d\n", twoNums[1], twoNums[0], answer);
-                stack = push(stack, answer);
-                stackSize -= 1;
-                break;
-            }
-
+            selectOperation(&stack, userInput);
+            stackSize--;
         }
     }
 
