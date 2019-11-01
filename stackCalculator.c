@@ -97,7 +97,6 @@ struct node *selectOperation(struct node **stack, char userInput)
                 (*stack) = push((*stack), answer);
                 break;
             }
-
 }
 
 
@@ -138,9 +137,42 @@ int oneByOne()
 
 }
 
+int arrayInput(char *inputArray)
+{
+    int answer;
+    int twoNums[2];
+    struct node *stack;
+    int stackSize = 0;
+    int number;
+
+    for(int i = 0; inputArray[i] != NULL; i++)
+    {
+        if((inputArray[i] - '0') < 10 && (inputArray[i] - '0') >= 0)
+        {
+            number = inputArray[i] - '0';
+            stack = push(stack, number);
+            stackSize++;
+        }
+
+        else if(stackSize >= 2)
+        {
+            selectOperation(&stack, inputArray[i]);
+            stackSize--;
+        }
+
+
+    }
+    answer = pop(&stack);
+    return answer;
+}
+
 int main()
 {
-    int answer = oneByOne();
-    printf("The final answer is: %d", answer);
+    //int answer = oneByOne();
+    //printf("The final answer is: %d", answer);
+    int answer;
+    char inputArray[10] = "12+3*";
+    answer = arrayInput(inputArray);
+    printf("The answer from the string is %d", answer);
     return 0;
 }
